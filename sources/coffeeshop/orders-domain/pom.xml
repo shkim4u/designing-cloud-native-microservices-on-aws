@@ -34,5 +34,11 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
+				<!-- [2021-03-19] KSH: Add cucumber testing -->
+				<dependency>
+						<groupId>io.cucumber</groupId>
+						<artifactId>cucumber-java</artifactId>
+						<version>6.8.1</version>
+				</dependency>
     </dependencies>
 </project>
