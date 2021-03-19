@@ -1,0 +1,6 @@
+[
+  {
+    "name": "defaultContainer",
+    "imageUri": "301391518739.dkr.ecr.ap-northeast-2.amazonaws.com/solid-humank-coffeeshop/orders-web:latest"
+  }
+]
