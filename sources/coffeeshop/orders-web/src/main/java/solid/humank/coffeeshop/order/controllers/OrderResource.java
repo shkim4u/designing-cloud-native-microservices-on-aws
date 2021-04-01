@@ -15,47 +15,63 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Path("/order")
 public class OrderResource {
 
-    @Inject
-    CreateOrderSvc service;
+	Logger logger = LoggerFactory.getLogger(OrderResource.class);
 
-    public OrderResource() {
-    }
+	@Inject
+	CreateOrderSvc service;
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createOrder(AddOrderReq request) {
+	public OrderResource() {
+	}
 
-        CreateOrderMsg cmd = new CreateOrderMsg("0", this.transformToOrderItemVM(request.getItems()));
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createOrder(AddOrderReq request) {
+		/**
+		 * [2021-03-23] KSH: Testing how Quarkus generates GeneratedMain class and calls
+		 * into this resource class.
+		 */
+		StackTraceElement[] stacks = (new Throwable()).getStackTrace();
+		// StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
+		for (StackTraceElement element : stacks) {
+			logger.info("" + element);
+		}
+		logger.info("request: " + request.toString());
 
-        OrderRst orderRst = null;
-        String err = null;
+		CreateOrderMsg cmd = new CreateOrderMsg("0", this.transformToOrderItemVM(request.getItems()));
 
-        try {
-            orderRst = service.establishOrder(cmd);
-        } catch (AggregateException e) {
-            e.printStackTrace();
-            err = e.getMessage();
-        }
+		OrderRst orderRst = null;
+		String err = null;
 
-        if (err == null) {
-            return Response.ok(orderRst).status(Response.Status.CREATED).build();
-        }
-        return Response.ok(err).build();
-    }
+		try {
+			orderRst = service.establishOrder(cmd);
+		} catch (AggregateException e) {
+			e.printStackTrace();
+			err = e.getMessage();
+		}
 
-    private List<OrderItemRst> transformToOrderItemVM(List<OrderItemRM> items) {
-        List<OrderItemRst> result = new ArrayList<>();
-        items.forEach(orderItemRM -> {
-            result.add(new OrderItemRst(orderItemRM.getProductId(), orderItemRM.getQty(), orderItemRM.getPrice()));
-        });
+		if (err == null) {
+			return Response.ok(orderRst).status(Response.Status.CREATED).build();
+		}
+		return Response.ok(err).build();
+	}
 
-        return result;
-    }
+	private List<OrderItemRst> transformToOrderItemVM(List<OrderItemRM> items) {
+		List<OrderItemRst> result = new ArrayList<>();
+		items.forEach(orderItemRM -> {
+			result.add(new OrderItemRst(orderItemRM.getProductId(), orderItemRM.getQty(), orderItemRM.getPrice()));
+		});
+
+		return result;
+	}
 }

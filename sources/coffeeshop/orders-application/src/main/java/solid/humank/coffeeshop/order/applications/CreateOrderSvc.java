@@ -21,51 +21,48 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
-
 @ApplicationScoped
 public class CreateOrderSvc implements Serializable {
 
-    //TODO 確認實作結果
+	// TODO confirmation result
+	@Inject
+	public IOrderRepository repository;
+	@Inject
+	public ITranslator<List<OrderItem>, List<OrderItemRst>> translator;
+	@Inject
+	DomainEventPublisher domainEventPublisher;
+	Logger logger = LoggerFactory.getLogger(CreateOrderSvc.class);
 
-    @Inject
-    public IOrderRepository repository;
-    @Inject
-    public ITranslator<List<OrderItem>, List<OrderItemRst>> translator;
-    @Inject
-    DomainEventPublisher domainEventPublisher;
-    Logger logger = LoggerFactory.getLogger(CreateOrderSvc.class);
+	/**
+	 * The barista will accept the order and start to get the raw materials from the
+	 * refrigerator according to the products on the order The barista will update
+	 * the order status regularly
+	 * <p>
+	 * So the relationship between the barista and the BC of the order is a Partner
+	 * Orders will not directly affect inventory Where are you writing here? But
+	 * when the barista fetches the refrigerator, if it is already insufficient, he
+	 * will simultaneously fetch/deduct the inventory
+	 * <p>
+	 * Producer --> Event <-- Consumer OrderDomain |OrderCreated | Coffee to accept
+	 * the order Coffee |OrderAccepted|
+	 */
+	public CreateOrderSvc() {
+	}
 
-    /**
-     * 咖啡師 會接受訂單，並且開始依照訂單上的產品去冰箱取得原物料
-     * 咖啡師會定期更新訂單狀態
-     * <p>
-     * 所以咖啡師和訂單的BC是Partner關係
-     * 訂單不會直接影響到庫存
-     * 這邊你寫在哪?
-     * 但是咖啡師取冰箱的時候，如果已經不足，會去同步取/扣庫存
-     * <p>
-     * Producer --> Event <-- Consumer
-     * OrderDomain |OrderCreated | Coffee to accept the order
-     * Coffee      |OrderAccepted|
-     */
+	public OrderRst establishOrder(CreateOrderMsg request) throws AggregateException {
 
-    public CreateOrderSvc() {
-    }
+		OrderId id = this.repository.generateOrderId();
+		List<OrderItem> items = translator.translate(request.getItems());
 
-    public OrderRst establishOrder(CreateOrderMsg request) throws AggregateException {
+		CreateOrder cmd = new CreateOrder(id, request.getTableNo(), OrderStatus.INITIAL, items);
+		Order createdOrder = Order.create(cmd);
 
-        OrderId id = this.repository.generateOrderId();
-        List<OrderItem> items = translator.translate(request.getItems());
+		logger.info(new DomainModelMapper().writeToJsonString(createdOrder));
 
-        CreateOrder cmd = new CreateOrder(id, request.getTableNo(), OrderStatus.INITIAL, items);
-        Order createdOrder = Order.create(cmd);
+		this.repository.save(createdOrder);
 
-        logger.info(new DomainModelMapper().writeToJsonString(createdOrder));
+		domainEventPublisher.publish(createdOrder.getDomainEvents());
 
-        this.repository.save(createdOrder);
-
-        domainEventPublisher.publish(createdOrder.getDomainEvents());
-
-        return new OrderRst(createdOrder);
-    }
+		return new OrderRst(createdOrder);
+	}
 }

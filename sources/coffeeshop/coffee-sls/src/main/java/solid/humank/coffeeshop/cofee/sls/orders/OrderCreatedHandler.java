@@ -49,7 +49,7 @@ public class OrderCreatedHandler implements RequestStreamHandler {
         logger.info(String.valueOf(orderCreated.getDetail().getOrderItems().size()));
         logger.info(orderCreated.getDetail().getEntityId().toString());
 
-        //TODO : 調用咖啡師的服務, 參照需求文檔找製作美式咖啡的需求
+				//TODO: call the service of the barista, refer to the requirements document to find the requirements for making American coffee
         MakeCoffeeMsg cmd = new MakeCoffeeMsg(orderCreated.getDetail().getTableNo(), transformToCoffeeItemVM(orderCreated));
         service.make(cmd);
 

@@ -1,49 +1,48 @@
-# Coffeeshop 業務需求
+# Coffeeshop Business Needs
 
-## 咖啡店內
+## Coffee shop
 
-1. 客人走進店裡，可以看到牆上的 menu 並先找位置入座
-2. 服務生會到座位上幫客人點咖啡，並標記桌號進行點餐
-3. 店內總共有 5 張桌子，可容納 10 位客人
-4. 桌子編號從 1 至 5
-5. 點餐後，客人會付款進行交易，目前只先提供現金交易機制
-6. 客人在座位上等待咖啡師調製咖啡與供餐
-7. 當客人在店內點咖啡時，咖啡溫度在送到桌上時需要維持在 70 度，便於客戶飲用，若客戶是外帶則會需要再包裝時調高到 90 度，而整個最佳的咖啡炮製時的溫度大約是 88~98 度
-8. 店內提供咖啡主要有單份濃縮咖啡 (Expresso)、美式 (Caffe Americano)、拿鐵 (Caffe Latte)、卡布奇諾 (Cappuccino)
-9. 每一杯飲料區分 小杯( short/8 oz/240ml)、 中杯( Tall/12 oz/360ml ) 、大杯 (Grande/16 oz/480ml)、 特大杯 (Venti/20 oz/600ml) 。濃縮咖啡則是例外，僅提供單倍 (1 oz/30ml) 與雙倍 (2 oz/60ml)
-10. 濃縮咖啡的價錢依照容量分別為單倍 60 元；雙倍 80 元
-11. 美式咖啡的價錢依照容量分別為小杯 80 元；中杯 100 元；大杯 120 元；特大杯 140 元 。每次升級加收 20 元
-12. 拿鐵咖啡的價錢依照容量分別為小杯 100 元；中杯 120 元；大杯 140 元；特大杯 160 元 。每次升級加收 20 元
-13. 卡布奇諾的價錢依照容量分別為小杯 100 元；中杯 120 元；大杯 140 元；特大杯 160 元 。每次升級加收 20 元
-14. 當客人點餐之後，櫃檯收到訂單，會去完成訂單確認與付款，並將訂單 提交給咖啡師進行製作
-15. 咖啡師根據訂單內容，從原物料倉庫當中提取訂單所需要用上的原料進行調製
+1. When guests walk into the store, they can see the menu on the wall and find a seat first
+2. The waiter will come to the seat to help the guests order coffee, and mark the table number for ordering
+3. There are a total of 5 tables in the store, which can accommodate 10 guests
+4. Table number from 1 to 5
+5. After ordering, the guest will pay for the transaction, currently only the cash transaction mechanism is provided first
+6. Guests wait for the barista to prepare coffee and serve meals on their seats
+7. When customers order coffee in the store, the temperature of the coffee needs to be maintained at 70 degrees when it is delivered to the table, which is convenient for the customer to drink. If the customer is taking out, it will need to be increased to 90 degrees when repacking, and the whole is the best The temperature when the coffee is brewed is about 88~98 degrees
+8. The coffee provided in the store mainly includes single-serve espresso (Expresso), American (Caffe Americano), latte (Caffe Latte), and cappuccino (Cappuccino)
+9. Each drink is divided into small cups (short/8 oz/240ml), medium cups (Tall/12 oz/360ml), large cups (Grande/16 oz/480ml), and extra large cups (Venti/20 oz/600ml). The exception is espresso, only single (1 oz/30ml) and double (2 oz/60ml) are available
+10. The price of espresso according to the capacity is 60 yuan for single and 80 yuan for double
+11. The price of American coffee is 80 yuan for small cups; 100 yuan for medium cups; 120 yuan for large cups; and 140 yuan for extra large cups. 20 yuan for each upgrade
+12. The price of a latte is 100 yuan for a small cup; 120 yuan for a medium cup; 140 yuan for a large cup; and 160 yuan for an extra large cup. 20 yuan for each upgrade
+13. The price of cappuccino is 100 yuan for small cups; 120 yuan for medium cups; 140 yuan for large cups; and 160 yuan for extra large cups. 20 yuan for each upgrade
+14. After the customer orders the food, the counter receives the order, will complete the order confirmation and payment, and submit the order to the barista for production
+15. According to the content of the order, the barista extracts the raw materials needed for the order from the raw material warehouse for preparation
+## Purchase raw materials
 
-## 進貨原物料
+1. When buying milk, you will need to provide Low-fat Milk or Soy Milk
+2. The current configuration of the inventory warehouse can store 20 bottles of 2L soymilk and 50 bottles of 2L milk at a time, as well as 100 bags of Sumatra coffee beans in a 1 kg package, and 200 bags of filter paper (one package contains 100 Sheet of filter paper)
+3. When the stock of any raw material is less than 30%, you need to notify the barista and the counter to replenish the stock. You can use SMS or email, and the counter staff is responsible for the actual purchase of the raw materials.
+4. Let the barista confirm the status and quantity of the purchased raw materials and put them in the warehouse
+5. I hope that there will be a visual presentation page in the future to see the raw material usage status, monthly hot sales rankings, and weekly hot sales rankings
+6. Every replenishment of the material will be made up to 100%, and the delivery needs to be completed within 3 days
 
-1. 購買牛奶時會需要提供低脂牛奶 (Low-fat Milk)或者 豆奶(Soy Milk)
-2. 庫存倉庫目前的配置，可以一次存放豆奶 2L 瓶裝的 20 瓶 , 以及 牛奶 2L 瓶裝的 50 瓶，還有蘇門答臘咖啡豆 1 公斤包裝的可一次收藏 100 包，濾紙 200 包(一包內含 100 張濾紙)
-3. 當有任何一個原物料的庫存低於 30%，需要通知咖啡師與櫃檯進行補貨，可以通過簡訊、email，而真正去購買原料的是由櫃檯人員去負責
-4. 買回來的原物料讓咖啡師確認品項狀態與數量後入庫
-5. 希望未來可以有個可視覺化的呈現頁面去看到原料使用狀態、每月熱銷排行、每週熱銷排行
-6. 每一次補貨都將該物料補到 100%，並且需要在 3 天內到貨完成
+## Provide customized experience requirements
 
-## 提供客製化體驗需求
+1. In the case of latte, customers can choose not to foam, normal milk foam, or more milk foam
+2. For cappuccino, you can choose dry (Dry/less milk) or wet (Wet/more milk) [ref](https://stories.starbucks.com/stories/2016/wet -vs-dry-cappuccino/)
+3. At the same time, guests can add Whipped Cream (Whipped Cream) to the cappuccino for an additional 20 yuan
+4. When buying latte or cappuccino, customers can choose to use soy milk instead of milk
 
-1. 以拿鐵來說，客人可以選擇不要奶泡、正常奶泡、更多奶泡
-2. 以卡布奇諾來說，可人可以選擇乾式 (Dry/牛奶少) 或是濕式 (Wet/牛奶多) [ref](https://stories.starbucks.com/stories/2016/wet-vs-dry-cappuccino/)
-3. 同時，客人可以額外花 20 元在卡布奇諾上加上鮮奶油 (Whipped Cream)
-4. 購買拿鐵或卡布奇諾時，客人可以選擇用豆奶 (soy milk) 代替牛奶
+## Making coffee
 
-## 製作咖啡
+1. Every freshly brewed coffee is the way to make Italian coffee, and every espresso is called a shot
+2. For every shot of espresso, 20g of coffee beans will be used to extract 30ml of coffee liquid
+3. A standard dry cappuccino steamed milk (steamed milk) to milk foam (foam) ratio is 1:2
+4. A standard wet cappuccino steamed milk (steamed milk) to milk foam (foam) ratio is 2:1
+5. The longer you use the steam stick to charge milk, the more milk froth you can get [ref](https://www.youtube.com/watch?v=Q45zCLnLyuE)
+6. The following are detailed items and practices:
 
-1. 每一份現煮咖啡我們是義式咖啡的製作方式，每一份濃縮咖啡我們稱之為一個 Shot
-2. 每一杯濃縮咖啡(shot)，都會耗用 20g 的咖啡豆萃取出 30ml 的咖啡液
-3. 一份標準的乾式卡布奇諾的蒸牛奶 (steamed milk) 與奶泡 (foam) 比例為 1:2
-4. 一份標準的濕式卡布奇諾的蒸牛奶 (steamed milk) 與奶泡 (foam) 比例為 2:1
-5. 當你用蒸氣棒徵牛奶越久，你可以得到越多奶泡 [ref](https://www.youtube.com/watch?v=Q45zCLnLyuE)
-6. 以下是詳細的品項以及作法:
-
-| 品項/規格                  | 容量  | 價錢 | 作法                                                      |
+| Item/Specification         | Capacity  | Price | Practice                                             |
 | -------------------------- | ----- | ---- | --------------------------------------------------------- |
 | Espresso / Single          | 30ml  | 60   | 1 shot (30ml)                                             |
 | Espresso / Double          | 60ml  | 80   | 2 shot (60ml)                                             |
