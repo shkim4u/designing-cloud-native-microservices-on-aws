@@ -11,7 +11,7 @@ Resources:
       CodeUri: s3://solid-humank-coffeeshop/6d45cd8788f4cb9abd785ca4eb6faad3
       Policies:
         - AmazonDynamoDBFullAccess
-        - AWSLambdaFullAccess
+        - AWSLambda_FullAccess
         - CloudWatchEventsFullAccess
       Events:
         PurchaseOrder:

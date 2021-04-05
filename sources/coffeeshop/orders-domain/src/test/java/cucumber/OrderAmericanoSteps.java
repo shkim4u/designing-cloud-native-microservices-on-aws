@@ -24,7 +24,7 @@ public class OrderAmericanoSteps {
 	CreateOrder cmd;
 	Order createdOrder;
 
-	@Given("customer wants to order coffee with the following detail")
+	@Given("손님이 아래의 주문 내역으로 커피를 주문한다.")
 	public void customer_wants_to_order_coffee(io.cucumber.datatable.DataTable dataTable) {
 		List<Map<String, String>> testData = dataTable.asMaps(String.class, String.class);
 		Map<String, String> sample = testData.get(0);
@@ -39,12 +39,12 @@ public class OrderAmericanoSteps {
 
 	}
 
-	@When("the order is confirmed")
+	@When("주문이 확인된다.")
 	public void the_order_is_confirmed() throws AggregateException {
 		createdOrder = Order.create(cmd);
 	}
 
-	@Then("the total fee should be {int}l")
+	@Then("전체 주문 금액은 {int}l이다.")
 	public void the_total_fee_should_be_160l(Integer int1) {
 		System.out.println("Total fee: " + int1);
 		assertEquals(createdOrder.totalFee().longValue(), int1.longValue());
